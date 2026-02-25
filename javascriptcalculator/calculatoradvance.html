@@ -1,0 +1,155 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advanced Calculator</title>
+
+<style>
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#000;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+/* Calculator Box */
+.calculator{
+    background:#111;
+    padding:20px;
+    border-radius:25px;
+    box-shadow:0 0 30px rgba(0,0,0,0.8);
+    width:320px;
+}
+
+/* Display */
+.display{
+    width:100%;
+    height:70px;
+    border:none;
+    border-radius:15px;
+    background:#000;
+    color:rgb(255, 145, 0);
+    font-size:28px;
+    text-align:right;
+    padding:10px;
+    margin-bottom:15px;
+    box-shadow: inset 0 0 10px rgb(255, 145, 0);
+}
+
+/* Buttons Grid */
+.buttons{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+}
+
+/* Base Button Style */
+button{
+    height:60px;
+    width:60px;
+    border-radius:50%;
+    border:none;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+/* Hover Effect */
+button:hover{
+    transform:scale(1.1);
+}
+
+/* Number Themes */
+.num1,.num2,.num3,.num4,.num5,.num6,.num7,.num8,.num9,.num0{
+    background:#aaaaaa;
+}
+
+/* Operators */
+.operator{
+    background:#222;
+    color:white;
+}
+
+.equal{
+    background:#00c853;
+    color:white;
+}
+
+.clear{
+    background:#ffae17;
+    color:white;
+}
+</style>
+</head>
+
+<body>
+
+<div class="calculator">
+    <input type="text" id="display" class="display" disabled>
+
+    <div class="buttons">
+        <button class="clear" onclick="clearDisplay()">C</button>
+        <button class="operator" onclick="append('%')">%</button>
+        <button class="operator" onclick="append('/')">÷</button>
+        <button class="operator" onclick="append('*')">×</button>
+
+        <button class="num7" onclick="append('7')">7</button>
+        <button class="num8" onclick="append('8')">8</button>
+        <button class="num9" onclick="append('9')">9</button>
+        <button class="operator" onclick="append('-')">−</button>
+
+        <button class="num4" onclick="append('4')">4</button>
+        <button class="num5" onclick="append('5')">5</button>
+        <button class="num6" onclick="append('6')">6</button>
+        <button class="operator" onclick="append('+')">+</button>
+
+        <button class="num1" onclick="append('1')">1</button>
+        <button class="num2" onclick="append('2')">2</button>
+        <button class="num3" onclick="append('3')">3</button>
+        <button class="equal" onclick="calculate()">=</button>
+
+        <button class="num0" style="grid-column: span 2; width:100%; border-radius:30px;" onclick="append('0')">0</button>
+        <button class="operator" onclick="append('.')">.</button>
+        <button class="operator" onclick="toggleSign()">+/-</button>
+    </div>
+</div>
+
+<script>
+let display = document.getElementById("display");
+
+function append(value){
+    display.value += value;
+}
+
+function clearDisplay(){
+    display.value = "";
+}
+
+function toggleSign(){
+    if(display.value){
+        if(display.value.startsWith("-")){
+            display.value = display.value.substring(1);
+        }else{
+            display.value = "-" + display.value;
+        }
+    }
+}
+
+function calculate(){
+    try{
+        display.value = eval(display.value);
+    }catch{
+        display.value = "Error";
+    }
+}
+</script>
+
+</body>
+</html>
+
