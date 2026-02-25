@@ -1,120 +1,241 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>My Web Projects</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Web Projects</title>
 
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(120deg, #667eea, #764ba2);
-            color: white;
-            text-align: center;
-        }
+<style>
 
-        header {
-            padding: 40px 20px 10px;
-        }
+:root{
+    --bg1:#667eea;
+    --bg2:#764ba2;
+    --text:white;
+    --card:rgba(255,255,255,0.15);
+}
 
-        h1 {
-            margin-bottom: 10px;
-        }
+body.dark{
+    --bg1:#0f2027;
+    --bg2:#203a43;
+    --text:white;
+    --card:rgba(255,255,255,0.08);
+}
 
-        p {
-            opacity: 0.9;
-        }
+body{
+    margin:0;
+    font-family:'Segoe UI',sans-serif;
+    background:linear-gradient(270deg,var(--bg1),var(--bg2));
+    background-size:400% 400%;
+    animation:gradientMove 10s ease infinite;
+    color:var(--text);
+    text-align:center;
+    transition:0.4s;
+}
 
-        .projects {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 40px;
-            padding: 20px;
-        }
+/* Background Animation */
+@keyframes gradientMove{
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
 
-        .project-card {
-            background: white;
-            color: #333;
-            width: 260px;
-            margin: 20px;
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-            text-decoration: none;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 4px solid transparent;
-        }
+header{
+    padding:60px 20px 20px;
+}
 
-        .project-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 45px rgba(0,0,0,0.4);
-            border: 4px solid #ff6b6b;
-        }
+h1{
+    font-size:42px;
+    margin-bottom:10px;
+}
 
-        .project-card h2 {
-            margin-bottom: 10px;
-            color: #764ba2;
-        }
+.typing{
+    border-right:3px solid white;
+    white-space:nowrap;
+    overflow:hidden;
+    display:inline-block;
+}
 
-        .project-card p {
-            font-size: 14px;
-            color: #555;
-        }
+/* Toggle Button */
+.toggle{
+    position:absolute;
+    top:20px;
+    right:20px;
+    background:white;
+    color:black;
+    padding:8px 14px;
+    border-radius:20px;
+    cursor:pointer;
+    font-size:14px;
+    font-weight:bold;
+}
 
-        footer {
-            margin-top: 50px;
-            padding: 20px;
-            font-size: 14px;
-            opacity: 0.8;
-        }
-    </style>
+/* Projects */
+.projects{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    padding:20px;
+}
+
+.project-card{
+    backdrop-filter:blur(15px);
+    background:var(--card);
+    width:260px;
+    margin:20px;
+    padding:25px;
+    border-radius:18px;
+    text-decoration:none;
+    color:white;
+    transition:0.4s;
+    transform-style:preserve-3d;
+    box-shadow:0 15px 35px rgba(0,0,0,0.4);
+}
+
+.project-card:hover{
+    transform:rotateY(10deg) rotateX(10deg) scale(1.05);
+}
+
+.project-card h2{
+    margin:10px 0;
+}
+
+.icon{
+    font-size:40px;
+}
+
+/* Button Glow */
+.btn{
+    margin-top:10px;
+    padding:6px 14px;
+    border-radius:15px;
+    background:#ff6b6b;
+    color:white;
+    font-size:13px;
+    display:inline-block;
+    transition:0.3s;
+}
+
+.btn:hover{
+    box-shadow:0 0 15px #ff6b6b;
+}
+
+/* Footer */
+footer{
+    margin-top:40px;
+    padding:20px;
+    font-size:14px;
+    opacity:0.8;
+}
+
+/* Particles */
+.particle{
+    position:absolute;
+    background:rgba(255,255,255,0.2);
+    border-radius:50%;
+    animation:float 10s linear infinite;
+}
+
+@keyframes float{
+    from{transform:translateY(100vh);}
+    to{transform:translateY(-10vh);}
+}
+
+</style>
 </head>
+
 <body>
 
-    <header>
-        <h1>🚀 My Web Development Projects</h1>
-        <p>Click a project to open it</p>
-    </header>
+<div class="toggle" onclick="toggleMode()">🌙 Mode</div>
 
-    <section class="projects">
+<header>
+    <h1 class="typing" id="typingText"></h1>
+    <p>Click a project to explore</p>
+</header>
 
-         <a href="personalwebnocss/personalwebnocss.html" class="project-card">
-            <h2> 💻Personal Website (No css)</h2>
-            <p>A summarized info about me .</p>
-        </a>
+<section class="projects">
 
-        <a href="ecommercenocss/ecommercenocss.html" class="project-card">
-            <h2> 🛒 E-Commerce Website (No css)</h2>
-            <p>Online shopping website with products & cart .</p>
-        </a>
+    <a href="personalwebnocss/personalwebnocss.html" class="project-card">
+        <div class="icon">💻</div>
+        <h2>Personal Website (No CSS)</h2>
+        <p>Basic HTML profile page.</p>
+        <div class="btn">Open</div>
+    </a>
 
-        <a href="personalweb/Personal web.html" class="project-card">
-            <h2> 💻Personal Website</h2>
-            <p>A summarized info about me and my projects.</p>
-        </a>
-        
-        <a href="ecommerce/E-Commerce.html" class="project-card">
-            <h2>🛒 E-Commerce Website</h2>
-            <p>Online shopping website with products, cart and checkout features.</p>
-        </a>
+    <a href="ecommercenocss/ecommercenocss.html" class="project-card">
+        <div class="icon">🛒</div>
+        <h2>E-Commerce (No CSS)</h2>
+        <p>Simple shopping site.</p>
+        <div class="btn">Open</div>
+    </a>
 
-        <a href="javascriptcalculator/calculator.html" class="project-card">
-            <h2>🧮 Simple calculator</h2>
-            <p>Simple calculator to perform basic operation.</p>
-        </a>
+    <a href="personalweb/Personal web.html" class="project-card">
+        <div class="icon">🌐</div>
+        <h2>Personal Website</h2>
+        <p>Styled portfolio page.</p>
+        <div class="btn">Open</div>
+    </a>
 
-        <a href="javascriptcalculator/calculatoradvance.html" class="project-card">
-            <h2>🧮 Simple calculator with CSS</h2>
-            <p>Simple calculator to perform basic operation.</p>
-        </a>
+    <a href="ecommerce/E-Commerce.html" class="project-card">
+        <div class="icon">🛍️</div>
+        <h2>E-Commerce Website</h2>
+        <p>Products & cart features.</p>
+        <div class="btn">Open</div>
+    </a>
 
-    </section>
+    <a href="javascriptcalculator/calculator.html" class="project-card">
+        <div class="icon">🧮</div>
+        <h2>Simple Calculator</h2>
+        <p>Basic operations.</p>
+        <div class="btn">Open</div>
+    </a>
 
-    <footer>
-        © 2026 Lakshay Jhuthra | Hosted on GitHub Pages
-    </footer>
+    <a href="javascriptcalculator/calculatoradvance.html" class="project-card">
+        <div class="icon">⚡</div>
+        <h2>Advanced Calculator</h2>
+        <p>Styled calculator UI.</p>
+        <div class="btn">Open</div>
+    </a>
+
+</section>
+
+<footer>
+    © 2026 Lakshay Jhuthra | Hosted on GitHub Pages
+</footer>
+
+<script>
+
+/* Dark Mode Toggle */
+function toggleMode(){
+    document.body.classList.toggle("dark");
+}
+
+/* Typing Animation */
+const text = "🚀 My Web Development Projects";
+let i = 0;
+
+function typing(){
+    if(i < text.length){
+        document.getElementById("typingText").innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typing, 60);
+    }
+}
+typing();
+
+/* Floating Particles */
+for(let i=0;i<25;i++){
+    let p=document.createElement("div");
+    p.className="particle";
+    p.style.width=p.style.height=Math.random()*6+4+"px";
+    p.style.left=Math.random()*100+"vw";
+    p.style.animationDuration=(Math.random()*10+5)+"s";
+    document.body.appendChild(p);
+}
+
+</script>
 
 </body>
 </html>
+
+
+
