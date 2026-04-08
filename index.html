@@ -7,137 +7,224 @@
 
 <style>
 
-:root{
-    --bg1:#667eea;
-    --bg2:#764ba2;
-    --text:white;
-    --card:rgba(255,255,255,0.15);
-}
-
-body.dark{
-    --bg1:#0f2027;
-    --bg2:#203a43;
-    --text:white;
-    --card:rgba(255,255,255,0.08);
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
 }
 
 body{
-    margin:0;
-    font-family:'Segoe UI',sans-serif;
-    background:linear-gradient(270deg,var(--bg1),var(--bg2));
-    background-size:400% 400%;
-    animation:gradientMove 10s ease infinite;
-    color:var(--text);
-    text-align:center;
-    transition:0.4s;
+font-family:'Segoe UI',sans-serif;
+background:linear-gradient(270deg,#0f2027,#203a43,#2c5364);
+background-size:400% 400%;
+animation:gradientMove 12s ease infinite;
+color:white;
+min-height:100vh;
+text-align:center;
+overflow-x:hidden;
 }
 
-/* Background Animation */
 @keyframes gradientMove{
-    0%{background-position:0% 50%}
-    50%{background-position:100% 50%}
-    100%{background-position:0% 50%}
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
+}
+
+nav{
+display:flex;
+justify-content:center;
+align-items:center;
+padding:25px;
+font-size:24px;
+font-weight:bold;
+letter-spacing:1px;
 }
 
 header{
-    padding:60px 20px 20px;
+padding:40px 20px;
 }
 
 h1{
-    font-size:42px;
-    margin-bottom:10px;
+font-size:48px;
+margin-bottom:10px;
+background:linear-gradient(90deg,#00f2fe,#4facfe,#00f2fe);
+background-size:200%;
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+animation:shine 4s linear infinite;
+}
+
+@keyframes shine{
+0%{background-position:0%}
+100%{background-position:200%}
 }
 
 .typing{
-    border-right:3px solid white;
-    white-space:nowrap;
-    overflow:hidden;
-    display:inline-block;
+border-right:3px solid white;
+white-space:nowrap;
+overflow:hidden;
+display:inline-block;
 }
 
-/* Toggle Button */
-.toggle{
-    position:absolute;
-    top:20px;
-    right:20px;
-    background:white;
-    color:black;
-    padding:8px 14px;
-    border-radius:20px;
-    cursor:pointer;
-    font-size:14px;
-    font-weight:bold;
+.subtitle{
+opacity:.8;
+font-size:16px;
 }
 
-/* Projects */
 .projects{
-    display:flex;
-    justify-content:center;
-    flex-wrap:wrap;
-    padding:20px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:35px;
+padding:50px;
+max-width:1200px;
+margin:auto;
 }
 
 .project-card{
-    backdrop-filter:blur(15px);
-    background:var(--card);
-    width:260px;
-    margin:20px;
-    padding:25px;
-    border-radius:18px;
-    text-decoration:none;
-    color:white;
-    transition:0.4s;
-    transform-style:preserve-3d;
-    box-shadow:0 15px 35px rgba(0,0,0,0.4);
+background:rgba(255,255,255,0.06);
+backdrop-filter:blur(12px);
+border-radius:20px;
+padding:30px;
+text-decoration:none;
+color:white;
+transition:0.4s;
+position:relative;
+overflow:hidden;
+box-shadow:0 10px 40px rgba(0,0,0,0.7);
+}
+
+.project-card::before{
+content:"";
+position:absolute;
+top:-2px;
+left:-2px;
+right:-2px;
+bottom:-2px;
+background:linear-gradient(45deg,#00f2fe,#4facfe,#00f2fe);
+z-index:-1;
+opacity:0;
+transition:0.4s;
+filter:blur(10px);
+}
+
+.project-card:hover::before{
+opacity:1;
 }
 
 .project-card:hover{
-    transform:rotateY(10deg) rotateX(10deg) scale(1.05);
-}
-
-.project-card h2{
-    margin:10px 0;
+transform:translateY(-12px) scale(1.05);
 }
 
 .icon{
-    font-size:40px;
+font-size:44px;
+margin-bottom:10px;
+transition:.3s;
 }
 
-/* Button Glow */
+.project-card:hover .icon{
+transform:scale(1.2) rotate(8deg);
+}
+
+.project-card h2{
+margin:10px 0;
+font-size:20px;
+}
+
 .btn{
-    margin-top:10px;
-    padding:6px 14px;
-    border-radius:15px;
-    background:#ff6b6b;
-    color:white;
-    font-size:13px;
-    display:inline-block;
-    transition:0.3s;
+margin-top:12px;
+display:inline-block;
+padding:8px 18px;
+border-radius:20px;
+background:linear-gradient(45deg,#00f2fe,#4facfe);
+font-size:13px;
+transition:.3s;
 }
 
 .btn:hover{
-    box-shadow:0 0 15px #ff6b6b;
+box-shadow:0 0 20px #00f2fe;
+transform:scale(1.1);
 }
 
-/* Footer */
+/* IMAGE STYLE */
+.project-card img{
+width:100%;
+max-height:350px;
+object-fit:contain;
+background:black;
+padding:10px;
+border-radius:12px;
+transition:0.4s;
+cursor:pointer;
+}
+
+.project-card img:hover{
+transform:scale(1.08);
+}
+
+/* FULLSCREEN GALLERY */
+
+.gallery{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.95);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:9999;
+}
+
+.gallery img{
+max-width:90%;
+max-height:85%;
+border-radius:10px;
+animation:zoom 0.4s ease;
+}
+
+@keyframes zoom{
+from{transform:scale(0.7); opacity:0;}
+to{transform:scale(1); opacity:1;}
+}
+
+.close{
+position:absolute;
+top:20px;
+right:30px;
+font-size:35px;
+cursor:pointer;
+}
+
+.nav-btn{
+position:absolute;
+top:50%;
+transform:translateY(-50%);
+font-size:40px;
+cursor:pointer;
+padding:10px;
+}
+
+.prev{left:20px;}
+.next{right:20px;}
+
 footer{
-    margin-top:40px;
-    padding:20px;
-    font-size:14px;
-    opacity:0.8;
+margin-top:40px;
+padding:25px;
+font-size:14px;
+opacity:.7;
 }
 
-/* Particles */
 .particle{
-    position:absolute;
-    background:rgba(255,255,255,0.2);
-    border-radius:50%;
-    animation:float 10s linear infinite;
+position:absolute;
+background:rgba(255,255,255,0.15);
+border-radius:50%;
+animation:float 12s linear infinite;
 }
 
 @keyframes float{
-    from{transform:translateY(100vh);}
-    to{transform:translateY(-10vh);}
+from{transform:translateY(100vh);}
+to{transform:translateY(-10vh);}
 }
 
 </style>
@@ -145,112 +232,166 @@ footer{
 
 <body>
 
-<div class="toggle" onclick="toggleMode()">🌙 Mode</div>
+<nav>
+🚀 Lakshay Web Projects
+</nav>
 
 <header>
-    <h1 class="typing" id="typingText"></h1>
-    <p>Click a project to explore</p>
+<h1 class="typing" id="typingText"></h1>
+<p class="subtitle">Click any project to explore</p>
 </header>
 
 <section class="projects">
 
-    <a href="personalwebnocss/personalwebnocss.html" class="project-card">
-        <div class="icon">💻</div>
-        <h2>Personal Website (No CSS)</h2>
-        <p>Basic HTML profile page.</p>
-        <div class="btn">Open</div>
-    </a>
+<a href="personalwebnocss/personalwebnocss.html" class="project-card">
+<div class="icon">💻</div>
+<h2>Personal Website (No CSS)</h2>
+<p>Basic HTML profile page.</p>
+<div class="btn">Open</div>
+</a>
 
-    <a href="ecommercenocss/ecommercenocss.html" class="project-card">
-        <div class="icon">🛒</div>
-        <h2>E-Commerce (No CSS)</h2>
-        <p>Simple shopping site.</p>
-        <div class="btn">Open</div>
-    </a>
+<a href="ecommercenocss/ecommercenocss.html" class="project-card">
+<div class="icon">🛒</div>
+<h2>E-Commerce (No CSS)</h2>
+<p>Simple shopping site.</p>
+<div class="btn">Open</div>
+</a>
 
-    <a href="personalweb/Personal web.html" class="project-card">
-        <div class="icon">🌐</div>
-        <h2>Personal Website</h2>
-        <p>Styled portfolio page.</p>
-        <div class="btn">Open</div>
-    </a>
+<a href="personalweb/Personal web.html" class="project-card">
+<div class="icon">🌐</div>
+<h2>Personal Website</h2>
+<p>Styled portfolio page.</p>
+<div class="btn">Open</div>
+</a>
 
-    <a href="ecommerce/E-Commerce.html" class="project-card">
-        <div class="icon">🛍️</div>
-        <h2>E-Commerce Website</h2>
-        <p>Products & cart features.</p>
-        <div class="btn">Open</div>
-    </a>
+<a href="ecommerce/E-Commerce.html" class="project-card">
+<div class="icon">🛍️</div>
+<h2>E-Commerce Website</h2>
+<p>Products & cart features.</p>
+<div class="btn">Open</div>
+</a>
 
-    <a href="javascriptcalculator/calculator.html" class="project-card">
-        <div class="icon">🧮</div>
-        <h2>Simple Calculator</h2>
-        <p>Basic operations.</p>
-        <div class="btn">Open</div>
-    </a>
+<a href="javascriptcalculator/calculator.html" class="project-card">
+<div class="icon">🧮</div>
+<h2>Simple Calculator</h2>
+<p>Basic operations.</p>
+<div class="btn">Open</div>
+</a>
 
-    <a href="javascriptcalculator/calculatoradvance.html" class="project-card">
-        <div class="icon">⚡</div>
-        <h2>Advanced Calculator</h2>
-        <p>Styled calculator UI.</p>
-        <div class="btn">Open</div>
-    </a>
+<a href="javascriptcalculator/calculatoradvance.html" class="project-card">
+<div class="icon">⚡</div>
+<h2>Advanced Calculator</h2>
+<p>Styled calculator UI.</p>
+<div class="btn">Open</div>
+</a>
 
-     <a href="enhanceregistrationform/registrationform.html" class="project-card">
-        <div class="icon">📄</div>
-        <h2>Registration Form</h2>
-        <p>Registration form with tabular data</p>
-        <div class="btn">Open</div>
-    </a>
+<a href="enhanceregistrationform/registrationform.html" class="project-card">
+<div class="icon">📄</div>
+<h2>Registration Form</h2>
+<p>Registration form with tabular data</p>
+<div class="btn">Open</div>
+</a>
 
-    <a href="operationonarray/operationonarray.html" class="project-card">
-        <div class="icon">👨‍💻</div>
-        <h2> Student and Market place</h2>
-        <p>Students and market products with tabular data</p>
-        <div class="btn">Open</div>
-    </a>
-
+<a href="operationonarray/operationonarray.html" class="project-card">
+<div class="icon">👨‍💻</div>
+<h2>Student Marketplace</h2>
+<p>Students and market products</p>
+<div class="btn">Open</div>
+</a>
 
 </section>
 
+<h2 style="margin-top:40px; font-size:32px;">PHP FILES</h2>
+
+<section class="projects" style="max-width:1400px;">
+
+<div class="project-card">
+<img src="PHP - personal web/Screenshot 2026-04-08 113232.png" onclick="openGallery(0)">
+<h2 style="font-size:22px;">PHP Personal Web</h2>
+</div>
+
+<div class="project-card">
+<img src="PHP - e commerce/Screenshot 2026-04-08 113246.png" onclick="openGallery(1)">
+<h2 style="font-size:22px;">PHP E-Commerce</h2>
+</div>
+
+<div class="project-card" style="grid-column:span 2;">
+<div style="display:flex; gap:20px; flex-wrap:wrap; justify-content:center;">
+<img src="PHP - calculator/Screenshot 2026-04-08 113255.png" style="width:45%; min-width:280px;" onclick="openGallery(2)">
+<img src="PHP - calculator/Screenshot 2026-04-08 113313.png" style="width:45%; min-width:280px;" onclick="openGallery(3)">
+</div>
+<h2 style="font-size:24px; margin-top:20px;">PHP Calculator (Combined View)</h2>
+</div>
+
+</section>
+
+<!-- GALLERY -->
+<div class="gallery" id="gallery">
+<span class="close" onclick="closeGallery()">✖</span>
+<span class="nav-btn prev" onclick="change(-1)">❮</span>
+<img id="galleryImg">
+<span class="nav-btn next" onclick="change(1)">❯</span>
+</div>
+
 <footer>
-    © 2026 Lakshay Jhuthra | Hosted on GitHub Pages
+© 2026 Lakshay Jhuthra | Hosted on GitHub Pages
 </footer>
 
 <script>
 
-/* Dark Mode Toggle */
-function toggleMode(){
-    document.body.classList.toggle("dark");
-}
-
-/* Typing Animation */
-const text = "🚀 My Web Development Projects";
-let i = 0;
+const text=" My Web Development Projects"
+let i=0
 
 function typing(){
-    if(i < text.length){
-        document.getElementById("typingText").innerHTML += text.charAt(i);
-        i++;
-        setTimeout(typing, 60);
-    }
+if(i<text.length){
+document.getElementById("typingText").innerHTML+=text.charAt(i)
+i++
+setTimeout(typing,60)
 }
-typing();
+}
+typing()
 
-/* Floating Particles */
-for(let i=0;i<25;i++){
-    let p=document.createElement("div");
-    p.className="particle";
-    p.style.width=p.style.height=Math.random()*6+4+"px";
-    p.style.left=Math.random()*100+"vw";
-    p.style.animationDuration=(Math.random()*10+5)+"s";
-    document.body.appendChild(p);
+/* PARTICLES */
+for(let i=0;i<40;i++){
+let p=document.createElement("div")
+p.className="particle"
+p.style.width=p.style.height=Math.random()*6+4+"px"
+p.style.left=Math.random()*100+"vw"
+p.style.animationDuration=(Math.random()*12+6)+"s"
+document.body.appendChild(p)
 }
+
+/* GALLERY */
+
+const images=[
+"PHP - personal web/Screenshot 2026-04-08 113232.png",
+"PHP - e commerce/Screenshot 2026-04-08 113246.png",
+"PHP - calculator/Screenshot 2026-04-08 113255.png",
+"PHP - calculator/Screenshot 2026-04-08 113313.png"
+]
+
+let index=0
+
+function openGallery(i){
+index=i
+document.getElementById("gallery").style.display="flex"
+document.getElementById("galleryImg").src=images[index]
+}
+
+function closeGallery(){
+document.getElementById("gallery").style.display="none"
+}
+
+function change(step){
+index=(index+step+images.length)%images.length
+document.getElementById("galleryImg").src=images[index]
+}
+
+document.addEventListener("keydown",e=>{
+if(e.key==="Escape") closeGallery()
+})
 
 </script>
 
 </body>
 </html>
-
-
-
